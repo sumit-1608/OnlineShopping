@@ -39,14 +39,14 @@ public class ProductController {
   	}
     
     @PostMapping("/addProduct")
-    public Product addDoctor( @RequestBody Product p1) throws ProductNotFoundException{
+    public Product addProduct( @RequestBody Product p1) throws ProductNotFoundException{
     {
     	return service.addProduct(p1);
     }
 }
     
     @PutMapping("/updateProduct")
-   	public Product updateEmployee( @RequestBody Product p1) throws ProductNotFoundException{
+   	public Product updateProduct( @RequestBody Product p1) throws ProductNotFoundException{
    	{
    		return service.updateProduct(p1);
    	}

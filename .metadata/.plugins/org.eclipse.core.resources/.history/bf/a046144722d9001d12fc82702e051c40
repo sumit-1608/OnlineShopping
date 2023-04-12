@@ -1,0 +1,45 @@
+package com.services;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.entities.Order;
+import com.entities.Product;
+import com.exceptions.OrderDeatilsNotFoundException;
+import com.exceptions.ProductNotFoundException;
+import com.repositories.IOrderRepository;
+@Service
+public class OrderServiceImpl implements IOrderService {
+	
+	@Autowired
+	private IOrderRepository repo;
+
+	@Override
+	public List<Order> getOrders() {
+		// TODO Auto-generated method stub
+		return repo.findAll();
+
+	}
+
+	@Override
+	public Order getOrderDetailsById(int id) throws OrderDeatilsNotFoundException {
+		Optional<Order> result=repo.findById(id);
+		
+	    if(result.isPresent())
+	    {
+	    	repo.findById(id);
+	    	  return result.get();
+	    }
+	   
+	    else
+	    {
+	    	throw new ProductNotFoundException("there is no Records found in our database");
+
+		
+	}
+	}
+
+}

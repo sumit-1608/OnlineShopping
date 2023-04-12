@@ -3,14 +3,17 @@ package com.entities;
 import java.util.Date;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 
 @Entity
 public class Order {
 	
+	@Id
 	private int orderId;
 	private Date orderDate;
 	private String address;
 	private Product product;
+
 	public int getOrderId() {
 		return orderId;
 	}
