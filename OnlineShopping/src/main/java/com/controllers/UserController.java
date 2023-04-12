@@ -17,7 +17,7 @@ import com.exceptions.UserNotFoundException;
 import com.services.IUserService;
 
 @RestController
-@CrossOrigin
+
 public class UserController {
 
 	@Autowired

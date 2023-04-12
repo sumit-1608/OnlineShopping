@@ -22,7 +22,7 @@ public class Cart {
     )
 	private Long cartId;
 	
-	private Product product;
+	//private Product product;
 	
 	public Long getCartId() {
 		return cartId;
@@ -30,12 +30,12 @@ public class Cart {
 	public void setCartId(Long cartId) {
 		this.cartId = cartId;
 	}
-	public Product getProduct() {
-		return product;
-	}
-	public void setProduct(Product product) {
-		this.product = product;
-	}
+//	public Product getProduct() {
+//		return product;
+//	}
+//	public void setProduct(Product product) {
+//		this.product = product;
+//	}
 	
 	
 }

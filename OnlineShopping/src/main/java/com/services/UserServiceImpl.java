@@ -4,12 +4,13 @@ import java.nio.file.attribute.UserPrincipalNotFoundException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.entities.User;
 import com.exceptions.UserAlreadyExistsException;
 import com.exceptions.UserNotFoundException;
 import com.repositories.IUserRepository;
-
+@Service
 public class UserServiceImpl implements IUserService{
 
 	@Autowired

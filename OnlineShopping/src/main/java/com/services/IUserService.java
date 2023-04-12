@@ -2,8 +2,10 @@ package com.services;
 
 import java.util.List;
 
-import com.entities.User;
+import org.springframework.stereotype.Service;
 
+import com.entities.User;
+@Service
 public interface IUserService{
 
 	public List<User> getUsers();
