@@ -3,6 +3,7 @@ package com.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -58,5 +59,12 @@ public class OrderController {
 			
 			return service.updateOrderDetailsById(p1, id);
 		}
+	 
+	 @DeleteMapping("/deleteOrder/{id}")
+	  	public Order deleteOrder(@PathVariable int id) throws OrderDeatilsNotFoundException {
+	  	{
+	  		return service.deleteOrder(id);
+	  	}
 
+}
 }

@@ -2,10 +2,12 @@ package com.services;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.entities.Order;
 import com.entities.Product;
 import com.exceptions.OrderDeatilsNotFoundException;
-
+@Service
 public interface IOrderService {
 
 	List<Order> getOrders();

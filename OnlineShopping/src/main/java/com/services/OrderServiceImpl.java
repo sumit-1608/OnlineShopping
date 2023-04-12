@@ -7,9 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.entities.Order;
-import com.entities.Product;
+
 import com.exceptions.OrderDeatilsNotFoundException;
-import com.exceptions.ProductNotFoundException;
+
 import com.repositories.IOrderRepository;
 
 @Service
@@ -62,7 +62,7 @@ public class OrderServiceImpl implements IOrderService {
 
 			e1.setAddress(p1.getAddress());
 			e1.setOrderDate(p1.getOrderDate());
-			e1.setProduct(p1.getProduct());
+		//	e1.setProduct(p1.getProduct());
 
 			Order e2 = repo.save(e1);
 			return e2;
