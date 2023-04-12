@@ -1,0 +1,46 @@
+package com.controllers;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.entities.Product;
+import com.exceptions.ProductNotFoundException;
+import com.repositories.ProductRepository;
+import com.services.IProductService;
+
+@RestController
+public class ProductController {
+
+	
+    @Autowired
+    private ProductRepository repo;
+    
+    @Autowired
+    private IProductService service;
+    
+    
+    @GetMapping("/getProducts")
+    public List<Product> getProducts() {
+
+        return repo.findAll();
+    }
+    
+    @GetMapping("/getProduct/{id}")
+  	public Product getUser(@PathVariable int id) throws ProductNotFoundException{
+  		return service.getProductById(id);
+  	}
+    
+    @PostMapping("/addProduct")
+    public Product addDoctor( @RequestBody Product p1) throws ProductNotFoundException{
+    {
+    	return service.addProduct(p1);
+    }
+    
+
+}

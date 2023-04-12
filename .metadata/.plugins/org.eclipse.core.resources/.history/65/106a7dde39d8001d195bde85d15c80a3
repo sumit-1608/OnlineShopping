@@ -1,0 +1,17 @@
+package com.services;
+
+import com.entities.Product;
+
+public class ProductServiceImpl implements IProductService {
+
+	@Override
+	public Product getProductById(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	
+	
+	 
+
+}

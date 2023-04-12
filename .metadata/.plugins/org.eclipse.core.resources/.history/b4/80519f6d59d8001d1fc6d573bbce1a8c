@@ -1,0 +1,88 @@
+package com.services;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.entities.Product;
+import com.exceptions.ProductNotFoundException;
+import com.repositories.ProductRepository;
+@Service
+public class ProductServiceImpl implements IProductService {
+	
+	@Autowired
+	private ProductRepository repo;
+
+	public List<Product> getProducts(){
+//		Product p1=new Product();
+//		if(p1.getQuantity()>0)
+//		{
+//			p1.setStatus("active");
+//		}
+//		else
+//		{
+//			p1.setStatus("deactive");
+//		}
+		return repo.findAll();
+		
+	}
+	@Override
+	public Product getProductById(int id) throws ProductNotFoundException {
+		Optional<Product> result=repo.findById(id);
+		
+	    if(result.isPresent())
+	    {
+	    	repo.findById(id);
+	    	  return result.get();
+	    }
+	   
+	    else
+	    {
+	    	throw new ProductNotFoundException("there is no Records found in our database");
+	    }}
+
+	@Override
+	public Product addProduct(Product p1) throws ProductNotFoundException {
+		// TODO Auto-generated method stub
+		
+		return repo.saveAndFlush(p1);
+	}
+
+	@Override
+	public Product updateProduct(Product p1) throws ProductNotFoundException {
+		Optional<Product> result=repo.findById(p1.getProductCode());
+		if(result.isPresent())
+		{
+			return repo.saveAndFlush(p1);
+		}
+		else
+		{
+			throw new ProductNotFoundException("please enter valid  id");
+		}
+	}
+	
+
+	@Override
+	public Product deleteProduct(int id) throws ProductNotFoundException {
+		Optional<Product> result=repo.findById(id);
+		if(result.isPresent())
+		{
+			repo.deleteById(id);
+			return result.get();
+		}
+		else
+		{
+			throw new ProductNotFoundException("there is no record found in our database");
+		}
+	}
+	
+	
+	
+	
+
+
+
+
+}
