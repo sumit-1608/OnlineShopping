@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import com.entities.Product;
 import com.exceptions.ProductNotFoundException;
 
-@Service
+
 public interface IProductService {
 	
 	

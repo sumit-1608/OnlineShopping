@@ -1,6 +1,7 @@
 package com.services;
 
 import java.util.List;
+
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,12 +9,14 @@ import org.springframework.stereotype.Service;
 
 import com.entities.Product;
 import com.exceptions.ProductNotFoundException;
-import com.repositories.ProductRepository;
+import com.repositories.IProductRepository;
+
+
 @Service
 public class ProductServiceImpl implements IProductService {
 	
 	@Autowired
-	private ProductRepository repo;
+	private IProductRepository repo;
 	@Override
 	public List<Product> getProducts(){
 //		Product p1=new Product();

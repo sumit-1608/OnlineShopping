@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.entities.Product;
 import com.exceptions.ProductNotFoundException;
-import com.repositories.ProductRepository;
+import com.repositories.IProductRepository;
 import com.services.IProductService;
 
 @RestController
@@ -21,7 +21,7 @@ public class ProductController {
 
 	
     @Autowired
-    private ProductRepository repo;
+    private IProductRepository repo;
     
     @Autowired
     private IProductService service;
