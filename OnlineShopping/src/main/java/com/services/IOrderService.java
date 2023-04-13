@@ -2,26 +2,28 @@ package com.services;
 
 import java.util.List;
 
+
 import org.springframework.stereotype.Service;
 
-import com.entities.Order;
+import com.entities.Orders;
 import com.entities.Product;
-import com.exceptions.OrderDeatilsNotFoundException;
-@Service
+import com.exceptions.OrderAlreadyExistsException;
+import com.exceptions.OrderDetailsNotFoundException;
+
 public interface IOrderService {
 
-	List<Order> getOrders();
+	List<Orders> getOrders();
 
-	Order getOrderDetailsById(int id) throws OrderDeatilsNotFoundException;
+	Orders getOrderDetailsById(int id) throws OrderDetailsNotFoundException;
 
-	Order addOrderDetails(Order p1)throws OrderDeatilsNotFoundException;
+	Orders addOrderDetails(Orders p1)throws OrderAlreadyExistsException;
 
-	Order updateOrderDetails(Order p1)throws OrderDeatilsNotFoundException;
+	Orders updateOrderDetails(Orders p1)throws OrderDetailsNotFoundException;
 
 	
 
-	Order updateOrderDetailsById(Order p1, int id)throws OrderDeatilsNotFoundException;
+	Orders updateOrderDetailsById(Orders p1, int id)throws OrderDetailsNotFoundException;
 
-	Order deleteOrder(int id) throws OrderDeatilsNotFoundException;
+	Orders deleteOrder(int id) throws OrderDetailsNotFoundException;
 
 }

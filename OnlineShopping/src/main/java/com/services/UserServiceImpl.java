@@ -1,12 +1,13 @@
 package com.services;
 
 import java.nio.file.attribute.UserPrincipalNotFoundException;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.entities.User;
+import com.entities.Users;
 import com.exceptions.UserAlreadyExistsException;
 import com.exceptions.UserNotFoundException;
 import com.repositories.IUserRepository;
@@ -18,12 +19,12 @@ public class UserServiceImpl implements IUserService{
 	private IUserRepository userDao;
 	
 	@Override
-	public List<User> getUsers() {
+	public List<Users> getUsers() {
 		return userDao.findAll();
 	}
 
 	@Override
-	public User getUserById(Long userId){
+	public Users getUserById(Long userId){
 		if(userDao.findById(userId).isEmpty()) {
 			throw new UserNotFoundException();
 		}
@@ -31,7 +32,7 @@ public class UserServiceImpl implements IUserService{
 	}
 
 	@Override
-	public User addUser(User user) {
+	public Users addUser(Users user) {
 		if(userDao.existsById(user.getUserId())) {
 			throw new UserAlreadyExistsException();
 		}
@@ -39,7 +40,7 @@ public class UserServiceImpl implements IUserService{
 	}
 
 	@Override
-	public User updateUser(Long userId, User user) {
+	public Users updateUser(Long userId, Users user) {
 		if(userDao.findById(userId).isEmpty()) {
 			throw new UserNotFoundException();
 		}
@@ -54,7 +55,7 @@ public class UserServiceImpl implements IUserService{
 		}
 		
 		
-		User user = userDao.findById(userId).get();
+		Users user = userDao.findById(userId).get();
 		
 		userDao.delete(user);
 		

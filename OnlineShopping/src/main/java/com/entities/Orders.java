@@ -2,13 +2,16 @@ package com.entities;
 
 import java.util.Date;
 
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
-public class Order {
+//@Table(name = "order")
+public class Orders {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -41,14 +44,14 @@ public class Order {
 //	public void setProduct(Product product) {
 //		this.product = product;
 //	}
-	public Order(int orderId, Date orderDate, String address) {
+	public Orders(int orderId, Date orderDate, String address) {
 		super();
 		this.orderId = orderId;
 		this.orderDate = orderDate;
 		this.address = address;
 	//	this.product = product;
 	}
-	public Order() {
+	public Orders() {
 		super();
 		// TODO Auto-generated constructor stub
 	}

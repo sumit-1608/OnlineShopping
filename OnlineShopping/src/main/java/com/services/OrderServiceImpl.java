@@ -1,14 +1,15 @@
 package com.services;
 
 import java.util.List;
+
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.entities.Order;
-
-import com.exceptions.OrderDeatilsNotFoundException;
+import com.entities.Orders;
+import com.exceptions.OrderAlreadyExistsException;
+import com.exceptions.OrderDetailsNotFoundException;
 
 import com.repositories.IOrderRepository;
 
@@ -19,15 +20,15 @@ public class OrderServiceImpl implements IOrderService {
 	private IOrderRepository repo;
 
 	@Override
-	public List<Order> getOrders() {
+	public List<Orders> getOrders() {
 		// TODO Auto-generated method stub
 		return repo.findAll();
 
 	}
 
 	@Override
-	public Order getOrderDetailsById(int id) throws OrderDeatilsNotFoundException {
-		Optional<Order> result = repo.findById(id);
+	public Orders getOrderDetailsById(int id) throws OrderDetailsNotFoundException {
+		Optional<Orders> result = repo.findById(id);
 
 		if (result.isPresent()) {
 			repo.findById(id);
@@ -35,47 +36,47 @@ public class OrderServiceImpl implements IOrderService {
 		}
 
 		else {
-			throw new OrderDeatilsNotFoundException("there is no Records found in our database");
+			throw new OrderDetailsNotFoundException("there is no Records found in our database");
 
 		}
 	}
 
 	@Override
-	public Order addOrderDetails(Order p1) throws OrderDeatilsNotFoundException {
+	public Orders addOrderDetails(Orders p1) throws OrderAlreadyExistsException {
 		return repo.saveAndFlush(p1);
 	}
 
 	@Override
-	public Order updateOrderDetails(Order p1) throws OrderDeatilsNotFoundException {
-		Optional<Order> result = repo.findById(p1.getOrderId());
+	public Orders updateOrderDetails(Orders p1) throws OrderDetailsNotFoundException {
+		Optional<Orders> result = repo.findById(p1.getOrderId());
 		if (result.isPresent()) {
 			return repo.saveAndFlush(p1);
 		} else {
-			throw new OrderDeatilsNotFoundException("please enter valid  id");
+			throw new OrderDetailsNotFoundException("please enter valid  id");
 		}
 	}
 
 	@Override
-	public Order updateOrderDetailsById(Order p1, int id) throws OrderDeatilsNotFoundException {
+	public Orders updateOrderDetailsById(Orders p1, int id) throws OrderDetailsNotFoundException {
 		if (repo.findById(id).isPresent()) {
-			Order e1 = repo.findById(id).get();
+			Orders e1 = repo.findById(id).get();
 
 			e1.setAddress(p1.getAddress());
 			e1.setOrderDate(p1.getOrderDate());
 		//	e1.setProduct(p1.getProduct());
 
-			Order e2 = repo.save(e1);
+			Orders e2 = repo.save(e1);
 			return e2;
 
 		} else {
-			throw new OrderDeatilsNotFoundException("there is no Records found in our database");
+			throw new OrderDetailsNotFoundException("there is no Records found in our database");
 		}
 
 	}
 
 	@Override
-	public Order deleteOrder(int id) throws OrderDeatilsNotFoundException {
-		Optional<Order> result=repo.findById(id);
+	public Orders deleteOrder(int id) throws OrderDetailsNotFoundException {
+		Optional<Orders> result=repo.findById(id);
 		if(result.isPresent())
 		{
 			repo.deleteById(id);
@@ -83,7 +84,7 @@ public class OrderServiceImpl implements IOrderService {
 		}
 		else
 		{
-			throw new OrderDeatilsNotFoundException("there is no record found in our database");
+			throw new OrderDetailsNotFoundException("there is no record found in our database");
 		}
 	}
 
