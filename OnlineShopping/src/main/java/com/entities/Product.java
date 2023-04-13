@@ -15,7 +15,7 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 
 @Entity
-//@Table(name = "ProductMaster")
+@Table(name = "product")
 public class Product {
 
 	
@@ -32,7 +32,7 @@ public class Product {
         @Parameter(name = "increment_size", value = "1")
         }
     )
-	private int productCode;
+	private Long productCode;
 
 	@NotBlank(message = "Name Field is mandatory")
 	private String productName;
@@ -51,11 +51,11 @@ public class Product {
 		this.productName = productName;
 	}
 
-	public int getProductCode() {
+	public Long getProductCode() {
 		return productCode;
 	}
 
-	public void setProductCode(int productCode) {
+	public void setProductCode(Long productCode) {
 		this.productCode = productCode;
 	}
 

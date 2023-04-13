@@ -2,6 +2,7 @@ package com.controllers;
 
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -12,7 +13,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.entities.User;
+import com.entities.Users;
+import com.exceptions.UserAlreadyExistsException;
 import com.exceptions.UserNotFoundException;
 import com.services.IUserService;
 
@@ -24,27 +26,27 @@ public class UserController {
 	private IUserService userService;
 	
 	@GetMapping("/users")
-	public List<User> getUsers(){
+	public List<Users> getUsers(){
 		return this.userService.getUsers();
 	}
 	
 	@GetMapping("/users/{userId}")
-	public User getUserById(@PathVariable Long userId) throws UserNotFoundException{
+	public Users getUserById(@PathVariable Long userId) throws UserNotFoundException{
 		return this.userService.getUserById(userId);
 	}
 	
 	@PostMapping("/user")
-	public User addUser(@RequestBody User user) {
+	public Users addUser(@RequestBody Users user) throws UserAlreadyExistsException{
 		return this.userService.addUser(user);
 	}
 	
-	@PutMapping("/user/{id}")
-	public User updateUser(@PathVariable Long userId, @RequestBody User user) {
+	@PutMapping("/user/{userId}")
+	public Users updateUser(@PathVariable Long userId, @RequestBody Users user) throws UserNotFoundException{
 		return this.userService.updateUser(userId, user);
 	}
 	
-	@DeleteMapping("/user/{id}")
-	public void deleteUser(@PathVariable Long userId) {
+	@DeleteMapping("/user/{userId}")
+	public void deleteUser(@PathVariable Long userId) throws UserNotFoundException{
 		this.userService.deleteUser(userId);
 	}
 }

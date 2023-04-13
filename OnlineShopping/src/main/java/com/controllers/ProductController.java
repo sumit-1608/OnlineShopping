@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.entities.Product;
+import com.exceptions.ProductAlreadyExistsException;
 import com.exceptions.ProductNotFoundException;
 import com.repositories.IProductRepository;
 import com.services.IProductService;
@@ -34,12 +35,12 @@ public class ProductController {
     }
     
     @GetMapping("/getProduct/{id}")
-  	public Product getUser(@PathVariable int id) throws ProductNotFoundException{
+  	public Product getUser(@PathVariable Long id) throws ProductNotFoundException{
   		return service.getProductById(id);
   	}
     
     @PostMapping("/addProduct")
-    public Product addProduct( @RequestBody Product p1) throws ProductNotFoundException{
+    public Product addProduct( @RequestBody Product p1) throws ProductAlreadyExistsException{
     {
     	return service.addProduct(p1);
     }
@@ -55,13 +56,13 @@ public class ProductController {
 }
     @PutMapping("updateProduct/{id}")
 
-	public Product updateById(@PathVariable int id,  @RequestBody Product p1) 
+	public Product updateById(@PathVariable Long id,  @RequestBody Product p1) 
 			throws ProductNotFoundException {
 		return service.updateById(p1, id);
 	}
     
     @DeleteMapping("/deleteProduct/{id}")
-  	public Product deleteProduct(@PathVariable int id) throws ProductNotFoundException
+  	public Product deleteProduct(@PathVariable Long id) throws ProductNotFoundException
   	{
   		return service.deleteProduct(id);
   	}

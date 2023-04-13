@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.entities.Product;
+import com.exceptions.ProductAlreadyExistsException;
 import com.exceptions.ProductNotFoundException;
 import com.repositories.IProductRepository;
 
@@ -32,7 +33,7 @@ public class ProductServiceImpl implements IProductService {
 		
 	}
 	@Override
-	public Product getProductById(int id) throws ProductNotFoundException {
+	public Product getProductById(Long id) throws ProductNotFoundException {
 		Optional<Product> result=repo.findById(id);
 		
 	    if(result.isPresent())
@@ -47,7 +48,7 @@ public class ProductServiceImpl implements IProductService {
 	    }}
 
 	@Override
-	public Product addProduct(Product p1) throws ProductNotFoundException {
+	public Product addProduct(Product p1) throws ProductAlreadyExistsException {
 		// TODO Auto-generated method stub
 		
 		return repo.saveAndFlush(p1);
@@ -68,7 +69,7 @@ public class ProductServiceImpl implements IProductService {
 	
 
 	@Override
-	public Product deleteProduct(int id) throws ProductNotFoundException {
+	public Product deleteProduct(Long id) throws ProductNotFoundException {
 		Optional<Product> result=repo.findById(id);
 		if(result.isPresent())
 		{
@@ -81,7 +82,7 @@ public class ProductServiceImpl implements IProductService {
 		}
 	}
 	@Override
-	public Product updateById(Product p1, int id) throws ProductNotFoundException {
+	public Product updateById(Product p1, Long id) throws ProductNotFoundException {
 		if(repo.findById(id).isPresent())
 		{
 			Product e1=repo.findById(id).get();

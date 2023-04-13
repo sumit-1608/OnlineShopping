@@ -1,14 +1,17 @@
 package com.entities;
 
 import org.hibernate.annotations.GenericGenerator;
+
 import org.hibernate.annotations.Parameter;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
-public class User {
+//@Table(name="user")
+public class Users {
 
 	@Id
 	@GeneratedValue(generator = "sequence-generator")
