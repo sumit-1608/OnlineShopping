@@ -10,6 +10,7 @@ import com.entities.User;
 import com.exceptions.UserAlreadyExistsException;
 import com.exceptions.UserNotFoundException;
 import com.repositories.IUserRepository;
+
 @Service
 public class UserServiceImpl implements IUserService{
 

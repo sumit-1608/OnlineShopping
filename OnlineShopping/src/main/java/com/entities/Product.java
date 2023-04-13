@@ -1,5 +1,10 @@
 package com.entities;
 
+import org.hibernate.annotations.Generated;
+
+import org.hibernate.annotations.GenerationTime;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
 
 
 import jakarta.persistence.Entity;
@@ -10,13 +15,23 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 
 @Entity
-@Table(name = "ProductMaster")
+//@Table(name = "ProductMaster")
 public class Product {
 
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY) 
+//	@GeneratedValue(strategy=GenerationType.IDENTITY) 
 	
+	@GeneratedValue(generator = "sequence-generator")
+    @GenericGenerator(
+      name = "sequence-generator",
+      strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
+      parameters = {
+        @Parameter(name = "sequence_name", value = "user_sequence"),
+        @Parameter(name = "initial_value", value = "1000"),
+        @Parameter(name = "increment_size", value = "1")
+        }
+    )
 	private int productCode;
 
 	@NotBlank(message = "Name Field is mandatory")
@@ -68,19 +83,19 @@ public class Product {
 //	}
 	
 
-	public Product( String productName, int productCode, int quantity, double price, String status) {
-		super();
-	
-		this.productName = productName;
-		this.productCode = productCode;
-		this.quantity = quantity;
-		this.price = price;
-
-	}
-
-	public Product() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+//	public Product( String productName, int productCode, int quantity, double price, String status) {
+//		super();
+//	
+//		this.productName = productName;
+//		this.productCode = productCode;
+//		this.quantity = quantity;
+//		this.price = price;
+//
+//	}
+//
+//	public Product() {
+//		super();
+//		// TODO Auto-generated constructor stub
+//	}
 
 }
