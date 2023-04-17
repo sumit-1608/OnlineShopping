@@ -24,48 +24,39 @@ import com.services.IOrderService;
 public class OrderController {
 
 	@Autowired
-	private IOrderService service;
+	private IOrderService orderService;
 
-	@Autowired
-	private IOrderRepository repo;
+	@GetMapping("/orders")
+	public List<Orders> GetOrders(){
 
-	@GetMapping("/getOrdersDetails")
-	public List<Orders> GetOrders() {
-
-		return service.getOrders();
+		return orderService.getOrders();
 	}
 
-	@GetMapping("/getOrderDetails/{id}")
-	public Orders getUser(@PathVariable int id) throws OrderDetailsNotFoundException {
-		return service.getOrderDetailsById(id);
+	@GetMapping("/orders/{orderId}")
+	public Orders getUser(@PathVariable Long orderId) throws OrderDetailsNotFoundException {
+		return orderService.getOrderDetailsById(orderId);
 	}
 
-	@PostMapping("/addOrderDetails")
-	public Orders addOrderDetails(@RequestBody Orders p1) throws OrderAlreadyExistsException {
+	@PostMapping("/order")
+	public Orders addOrderDetails(@RequestBody Orders order) throws OrderAlreadyExistsException {
 		{
-			return service.addOrderDetails(p1);
+			return orderService.addOrderDetails(order);
 		}
 	}
 
-	@PutMapping("/updateOrder")
-	public Orders updateOrderDetails(@RequestBody Orders p1) throws OrderDetailsNotFoundException {
+	@PutMapping("/order/{orderId}")
+	public Orders updateOrderDetails(@PathVariable Long orderId, @RequestBody Orders orders) throws OrderDetailsNotFoundException {
 		{
-			return service.updateOrderDetails(p1);
+			return this.orderService.updateOrderDetails(orderId, orders);
 		}
 
 	}
 	
-	 @PutMapping("updateOrderDetails/{id}")
-
-		public Orders updateOrderDetailsById(@PathVariable int id,  @RequestBody Orders p1) throws OrderDetailsNotFoundException {
-			
-			return service.updateOrderDetailsById(p1, id);
-		}
 	 
-	 @DeleteMapping("/deleteOrder/{id}")
-	  	public Orders deleteOrder(@PathVariable int id) throws OrderDetailsNotFoundException {
+	@DeleteMapping("/deleteOrder/{id}")
+	  	public void deleteOrder(@PathVariable Long orderId) throws OrderDetailsNotFoundException {
 	  	{
-	  		return service.deleteOrder(id);
+	  		orderService.deleteOrder(orderId);
 	  	}
 
 }

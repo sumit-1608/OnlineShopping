@@ -1,60 +1,84 @@
 package com.services;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.entities.Cart;
-import com.exceptions.CartAlreadyExistsException;
-import com.exceptions.CartNotFoundException;
-import com.repositories.ICartRepository;
+import com.entities.*;
+import com.exceptions.ItemAlreadyExistsException;
+import com.exceptions.ItemNotFoundException;
+import com.exceptions.OrderDetailsNotFoundException;
+import com.repositories.IItemsRepository;
+import com.repositories.IOrderRepository;
 
 @Service
-public class CartServiceImpl implements ICartService{
+public class ItemServiceImpl implements IItemsService{
 
 	@Autowired
-	private ICartRepository cartDao;
+	private IOrderRepository orderDao;
+	
+	@Autowired
+	private IItemsRepository itemDao;
 	
 	@Override
-	public List<Cart> getCart() {
-		return cartDao.findAll();
+	public List<Items> getItems(Long orderId) {
+		return itemDao.findAll();
+		
+		
+//		Orders order = orderDao.findById(orderId)
+//		        .orElseThrow(() -> new OrderDetailsNotFoundException());
+//
+//		    List<Items> items = new ArrayList<Items>();
+//		    items.addAll(order.getItems());
+//		    return items;
 	}
 
 	@Override
-	public Cart getCartById(Long cartId) {
-		if(cartDao.findById(cartId).isEmpty()) {
-			throw new CartNotFoundException();
+	public Items getItemsById(Long itemId) {
+		if(itemDao.findById(itemId).isEmpty()) {
+			throw new ItemNotFoundException();
 		}
-		return cartDao.findById(cartId).get();
+		return itemDao.findById(itemId).get();
 	}
 
 	@Override
-	public Cart addCart(Cart cart) {
-		if(cartDao.existsById(cart.getCartId())) {
-			throw new CartAlreadyExistsException();
+	public Items addItems(Items item) {
+		
+		
+		if(itemDao.existsById(item.getItemId())) {
+			throw new ItemAlreadyExistsException();
 		}
-		return cartDao.save(cart);
+		return itemDao.save(item);
+		
+//		Items items = orderDao.findById(orderId).map(orders -> {
+//		      orders.getItems().add(item);
+//		      return itemDao.save(item);
+//		    }).orElseThrow(() -> new OrderDetailsNotFoundException());
+//		
+//		return items;
 	}
 
 	@Override
-	public Cart updateCart(Long cartId, Cart cart) {
-		if(cartDao.findById(cartId).isEmpty()) {
-			throw new CartAlreadyExistsException();
+	public Items updateItems(Long itemId, Items item) {
+		if(itemDao.findById(itemId).isEmpty()) {
+			throw new ItemAlreadyExistsException();
 		}
-		return cartDao.save(cart);
+		return itemDao.save(item);
 	}
 
 	@Override
-	public void deleteCart(Long cartId) {
-		if(cartDao.findById(cartId).isEmpty()) {
-			throw new CartNotFoundException();
+	public void deleteItems(Long itemId) {
+		if(itemDao.findById(itemId).isEmpty()) {
+			throw new ItemNotFoundException();
 		}
 		
 		
-		Cart cart = cartDao.findById(cartId).get();
+		Items item = itemDao.findById(itemId).get();
 		
-		cartDao.delete(cart);
+		itemDao.delete(item);
 		
 	}
 

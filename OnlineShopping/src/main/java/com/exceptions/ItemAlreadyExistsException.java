@@ -1,14 +1,14 @@
 package com.exceptions;
 
-public class CartAlreadyExistsException extends RuntimeException{
+public class ItemAlreadyExistsException extends RuntimeException{
 
 private static final long serialVersionUID = 1L;
 	
-	public CartAlreadyExistsException() {
+	public ItemAlreadyExistsException() {
 		
 	}
 	
-	public CartAlreadyExistsException(String message) {
+	public ItemAlreadyExistsException(String message) {
 		super(message);
 	}
 }

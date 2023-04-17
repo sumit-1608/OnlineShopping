@@ -2,6 +2,7 @@ package com.controllers;
 
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,7 +12,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.entities.Product;
+import com.entities.*;
 import com.exceptions.ProductAlreadyExistsException;
 import com.exceptions.ProductNotFoundException;
 import com.repositories.IProductRepository;
@@ -19,10 +20,6 @@ import com.services.IProductService;
 
 @RestController
 public class ProductController {
-
-	
-    @Autowired
-    private IProductRepository repo;
     
     @Autowired
     private IProductService service;

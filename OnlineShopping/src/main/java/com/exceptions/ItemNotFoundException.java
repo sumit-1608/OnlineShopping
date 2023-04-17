@@ -1,14 +1,14 @@
 package com.exceptions;
 
-public class CartNotFoundException extends RuntimeException{
+public class ItemNotFoundException extends RuntimeException{
 
 private static final long serialVersionUID = 1L;
 	
-	public CartNotFoundException() {
+	public ItemNotFoundException() {
 		
 	}
 	
-	public CartNotFoundException(String message) {
+	public ItemNotFoundException(String message) {
 		super(message);
 	}
 }

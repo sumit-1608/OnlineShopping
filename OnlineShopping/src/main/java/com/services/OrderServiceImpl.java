@@ -8,84 +8,65 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.entities.Orders;
+import com.entities.Users;
+import com.exceptions.ItemNotFoundException;
 import com.exceptions.OrderAlreadyExistsException;
 import com.exceptions.OrderDetailsNotFoundException;
-
+import com.exceptions.UserAlreadyExistsException;
+import com.exceptions.UserNotFoundException;
 import com.repositories.IOrderRepository;
 
 @Service
 public class OrderServiceImpl implements IOrderService {
 
 	@Autowired
-	private IOrderRepository repo;
+	private IOrderRepository orderDao;
 
 	@Override
 	public List<Orders> getOrders() {
-		// TODO Auto-generated method stub
-		return repo.findAll();
+		return orderDao.findAll();
 
 	}
 
 	@Override
-	public Orders getOrderDetailsById(int id) throws OrderDetailsNotFoundException {
-		Optional<Orders> result = repo.findById(id);
-
-		if (result.isPresent()) {
-			repo.findById(id);
-			return result.get();
+	public Orders getOrderDetailsById(Long orderId){
+		if(orderDao.findById(orderId).isEmpty()) {
+			throw new OrderDetailsNotFoundException();
 		}
-
-		else {
-			throw new OrderDetailsNotFoundException("there is no Records found in our database");
-
-		}
+		return orderDao.findById(orderId).get();
+	
 	}
 
 	@Override
-	public Orders addOrderDetails(Orders p1) throws OrderAlreadyExistsException {
-		return repo.saveAndFlush(p1);
+	public Orders addOrderDetails(Orders orders){
+		if(orderDao.existsById(orders.getOrderId())) {
+			throw new OrderAlreadyExistsException();
+		}
+		
+		
+		
+		return orderDao.save(orders);
 	}
 
 	@Override
-	public Orders updateOrderDetails(Orders p1) throws OrderDetailsNotFoundException {
-		Optional<Orders> result = repo.findById(p1.getOrderId());
-		if (result.isPresent()) {
-			return repo.saveAndFlush(p1);
-		} else {
-			throw new OrderDetailsNotFoundException("please enter valid  id");
+	public Orders updateOrderDetails(Long orderId, Orders orders){
+		if(orderDao.findById(orderId).isEmpty()) {
+			throw new OrderDetailsNotFoundException();
 		}
+		return orderDao.save(orders);
 	}
 
 	@Override
-	public Orders updateOrderDetailsById(Orders p1, int id) throws OrderDetailsNotFoundException {
-		if (repo.findById(id).isPresent()) {
-			Orders e1 = repo.findById(id).get();
-
-			e1.setAddress(p1.getAddress());
-			e1.setOrderDate(p1.getOrderDate());
-		//	e1.setProduct(p1.getProduct());
-
-			Orders e2 = repo.save(e1);
-			return e2;
-
-		} else {
-			throw new OrderDetailsNotFoundException("there is no Records found in our database");
+	public void deleteOrder(Long orderId){
+		
+		if(orderDao.findById(orderId).isEmpty()) {
+			throw new OrderDetailsNotFoundException();
 		}
-
-	}
-
-	@Override
-	public Orders deleteOrder(int id) throws OrderDetailsNotFoundException {
-		Optional<Orders> result=repo.findById(id);
-		if(result.isPresent())
-		{
-			repo.deleteById(id);
-			return result.get();
-		}
-		else
-		{
-			throw new OrderDetailsNotFoundException("there is no record found in our database");
-		}
+		
+		
+		Orders order = orderDao.findById(orderId).get();
+		
+		orderDao.delete(order);
 	}
 
 }

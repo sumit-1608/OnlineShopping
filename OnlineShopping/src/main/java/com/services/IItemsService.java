@@ -2,13 +2,14 @@ package com.services;
 
 import java.util.List;
 
-import com.entities.Cart;
 
-public interface ICartService{
+import com.entities.Items;
 
-	public List<Cart> getCart();
-	public Cart getCartById(Long cartId);
-	public Cart addCart(Cart cart);
-	public Cart updateCart(Long cartId, Cart cart);
-	public void deleteCart(Long cartId);
+public interface IItemsService{
+
+	public List<Items> getItems(Long orderId);
+	public Items getItemsById(Long itemId);
+	public Items addItems(Items items);
+	public Items updateItems(Long itemId, Items item);
+	public void deleteItems(Long itemId);
 }

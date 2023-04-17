@@ -2,6 +2,7 @@ package com.controllers;
 
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,43 +12,41 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.entities.Cart;
-import com.exceptions.CartAlreadyExistsException;
-import com.exceptions.CartNotFoundException;
-import com.exceptions.UserNotFoundException;
-import com.services.CartServiceImpl;
-import com.services.ICartService;
+import com.entities.Items;
+import com.exceptions.ItemAlreadyExistsException;
+import com.exceptions.ItemNotFoundException;
+import com.services.IItemsService;
 
 @RestController
 
-public class CartController {
+public class ItemController {
 	
 	@Autowired
-	private ICartService cartService;
+	private IItemsService itemService;
 	
-	@GetMapping("/carts")
-	public List<Cart> getCart(){
-		return this.cartService.getCart();
+	@GetMapping("/items")
+	public List<Items> getItems(@PathVariable Long orderId){
+		return this.itemService.getItems(orderId);
 	}
 	
-	@GetMapping("/cart/{cartId}")
-	public Cart getCartById(@PathVariable Long cartId) throws CartNotFoundException{
-		return this.cartService.getCartById(cartId);
+	@GetMapping("/item/{itemId}")
+	public Items getItemById(@PathVariable Long itemId) throws ItemNotFoundException{
+		return this.itemService.getItemsById(itemId);
 	}
 	
-	@PostMapping("/cart")
-	public Cart addCart(@RequestBody Cart cart) throws CartAlreadyExistsException{
-		return this.cartService.addCart(cart);
+	@PostMapping("/item")
+	public Items addItem(@RequestBody Items item) throws ItemAlreadyExistsException{
+		return this.itemService.addItems(item);
 	}
 	
-	@PutMapping("/cart/{cartId}")
-	public Cart updateCart(@PathVariable Long cartId, @RequestBody Cart cart) throws CartNotFoundException{
-		return this.cartService.updateCart(cartId, cart);
+	@PutMapping("/item/{itemId}")
+	public Items updateItem(@PathVariable Long itemId, @RequestBody Items item) throws ItemNotFoundException{
+		return this.itemService.updateItems(itemId, item);
 	}
 	
-	@DeleteMapping("/cart/{cartId}")
-	public void deleteCart(@PathVariable Long cartId) throws CartNotFoundException{
-		this.cartService.deleteCart(cartId);
+	@DeleteMapping("/item/{itemId}")
+	public void deleteCart(@PathVariable Long itemId) throws ItemNotFoundException{
+		this.itemService.deleteItems(itemId);
 	}
 
 }

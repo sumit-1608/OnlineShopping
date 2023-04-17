@@ -2,24 +2,25 @@ package com.entities;
 
 import org.hibernate.annotations.GenericGenerator;
 
+
 import org.hibernate.annotations.Parameter;
+import org.springframework.boot.autoconfigure.web.WebProperties.Resources.Chain.Strategy;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 
 @Entity
-//@Table(name="user")
 public class Users {
 
 	@Id
-	@GeneratedValue(generator = "sequence-generator")
+	@GeneratedValue(generator = "sequence-generator_users")
     @GenericGenerator(
-      name = "sequence-generator",
+      name = "sequence-generator_users",
       strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
       parameters = {
-        @Parameter(name = "sequence_name", value = "user_sequence"),
+        @Parameter(name = "sequence_user", value = "user_sequence"),
         @Parameter(name = "initial_value", value = "1000"),
         @Parameter(name = "increment_size", value = "1")
         }
