@@ -25,8 +25,8 @@ public class ItemController {
 	private IItemsService itemService;
 	
 	@GetMapping("/items")
-	public List<Items> getItems(@PathVariable Long orderId){
-		return this.itemService.getItems(orderId);
+	public List<Items> getItems(){
+		return this.itemService.getItems();
 	}
 	
 	@GetMapping("/item/{itemId}")

@@ -16,15 +16,12 @@ import com.repositories.IOrderRepository;
 
 @Service
 public class ItemServiceImpl implements IItemsService{
-
-	@Autowired
-	private IOrderRepository orderDao;
 	
 	@Autowired
 	private IItemsRepository itemDao;
 	
 	@Override
-	public List<Items> getItems(Long orderId) {
+	public List<Items> getItems() {
 		return itemDao.findAll();
 		
 		

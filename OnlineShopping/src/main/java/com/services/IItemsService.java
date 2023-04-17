@@ -7,7 +7,7 @@ import com.entities.Items;
 
 public interface IItemsService{
 
-	public List<Items> getItems(Long orderId);
+	public List<Items> getItems();
 	public Items getItemsById(Long itemId);
 	public Items addItems(Items items);
 	public Items updateItems(Long itemId, Items item);
