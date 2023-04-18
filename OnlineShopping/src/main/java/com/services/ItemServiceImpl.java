@@ -8,9 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.entities.*;
-import com.exceptions.ItemAlreadyExistsException;
 import com.exceptions.ItemNotFoundException;
 import com.exceptions.OrderDetailsNotFoundException;
+import com.exceptions.ProductNotFoundException;
 import com.repositories.IItemsRepository;
 import com.repositories.IOrderRepository;
 
@@ -48,10 +48,21 @@ public class ItemServiceImpl implements IItemsService{
 
 	@Override
 	public Items updateItems(Long itemId, Items item) {
-		if(itemDao.findById(itemId).isEmpty()) {
-			throw new ItemAlreadyExistsException();
+		if(itemDao.findById(itemId).isPresent())
+		{
+			Items i = itemDao.findById(itemId).get();
+			
+			i.setQuantity(item.getQuantity());
+			i.setPrice(item.getPrice());
+			i.setOrder_id(item.getOrder_id());
+			
+			Items it = itemDao.save(i);
+			return it;
 		}
-		return itemDao.save(item);
+		else
+		{
+			throw new ItemNotFoundException(); 
+		}
 	}
 
 	@Override
