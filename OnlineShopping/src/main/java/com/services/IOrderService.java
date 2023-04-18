@@ -12,18 +12,10 @@ import com.exceptions.OrderDetailsNotFoundException;
 
 public interface IOrderService {
 
-	List<Orders> getOrders();
-
-	Orders getOrderDetailsById(int id) throws OrderDetailsNotFoundException;
-
-	Orders addOrderDetails(Orders p1)throws OrderAlreadyExistsException;
-
-	Orders updateOrderDetails(Orders p1)throws OrderDetailsNotFoundException;
-
-	
-
-	Orders updateOrderDetailsById(Orders p1, int id)throws OrderDetailsNotFoundException;
-
-	Orders deleteOrder(int id) throws OrderDetailsNotFoundException;
+	public List<Orders> getOrders();
+	public Orders getOrderDetailsById(Long orderId);
+	public Orders addOrderDetails(Orders orders);
+	public Orders updateOrderDetails(Long orderId, Orders orders);
+	public void deleteOrder(Long orderId);
 
 }

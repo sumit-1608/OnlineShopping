@@ -1,48 +1,48 @@
 package com.entities;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.hibernate.annotations.Generated;
 
 import org.hibernate.annotations.GenerationTime;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
-
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 
 @Entity
-@Table(name = "product")
 public class Product {
 
 	
 	@Id
-//	@GeneratedValue(strategy=GenerationType.IDENTITY) 
 	
-	@GeneratedValue(generator = "sequence-generator")
+	@GeneratedValue(generator = "sequence-generator_product")
     @GenericGenerator(
-      name = "sequence-generator",
+      name = "sequence-generator_product",
       strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
       parameters = {
-        @Parameter(name = "sequence_name", value = "user_sequence"),
+        @Parameter(name = "sequence_product", value = "product_sequence"),
         @Parameter(name = "initial_value", value = "1000"),
         @Parameter(name = "increment_size", value = "1")
         }
     )
 	private Long productCode;
-
-	@NotBlank(message = "Name Field is mandatory")
+	
 	private String productName;
-
 	private int quantity;
 	private double price;
 
-	// @Pattern(regexp = "active|deactive", message="dfd")
-	// private String status;
-	
 	public String getProductName() {
 		return productName;
 	}
@@ -74,28 +74,6 @@ public class Product {
 	public void setPrice(double price) {
 		this.price = price;
 	}
-
-//	public String getStatus() {
-//		return status;
-//	}
-//	public void setStatus(String status) {
-//		this.status = status;
-//	}
 	
-
-//	public Product( String productName, int productCode, int quantity, double price, String status) {
-//		super();
-//	
-//		this.productName = productName;
-//		this.productCode = productCode;
-//		this.quantity = quantity;
-//		this.price = price;
-//
-//	}
-//
-//	public Product() {
-//		super();
-//		// TODO Auto-generated constructor stub
-//	}
 
 }

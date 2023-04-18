@@ -33,9 +33,6 @@ public class UserServiceImpl implements IUserService{
 
 	@Override
 	public Users addUser(Users user) {
-		if(userDao.existsById(user.getUserId())) {
-			throw new UserAlreadyExistsException();
-		}
 		return userDao.save(user);
 	}
 

@@ -2,6 +2,7 @@ package com.controllers;
 
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,60 +12,54 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.entities.Product;
-import com.exceptions.ProductAlreadyExistsException;
+import com.entities.*;
 import com.exceptions.ProductNotFoundException;
-import com.repositories.IProductRepository;
 import com.services.IProductService;
 
 @RestController
 public class ProductController {
-
-	
-    @Autowired
-    private IProductRepository repo;
     
     @Autowired
-    private IProductService service;
+    private IProductService productService;
     
     
-    @GetMapping("/getProducts")
+    @GetMapping("/products")
     public List<Product> getProducts() {
 
-        return service.getProducts();
+        return this.productService.getProducts();
     }
     
-    @GetMapping("/getProduct/{id}")
-  	public Product getUser(@PathVariable Long id) throws ProductNotFoundException{
-  		return service.getProductById(id);
+    @GetMapping("/product/{productId}")
+  	public Product getUser(@PathVariable Long productId) throws ProductNotFoundException{
+  		return this.productService.getProductById(productId);
   	}
     
-    @PostMapping("/addProduct")
-    public Product addProduct( @RequestBody Product p1) throws ProductAlreadyExistsException{
+    @PostMapping("/product")
+    public Product addProduct( @RequestBody Product product){
     {
-    	return service.addProduct(p1);
+    	return this.productService.addProduct(product);
     }
 }
     
-    @PutMapping("/updateProduct")
-   	public Product updateProduct( @RequestBody Product p1) throws ProductNotFoundException{
+    @PutMapping("/product/{productId}")
+   	public Product updateProduct( @PathVariable Long productId, @RequestBody Product product) throws ProductNotFoundException{
    	{
-   		return service.updateProduct(p1);
+   		return this.productService.updateProduct(productId, product);
    	}
    	
    	
 }
-    @PutMapping("updateProduct/{id}")
-
-	public Product updateById(@PathVariable Long id,  @RequestBody Product p1) 
-			throws ProductNotFoundException {
-		return service.updateById(p1, id);
-	}
+//    @PutMapping("updateProduct/{id}")
+//
+//	public Product updateById(@PathVariable Long id,  @RequestBody Product p1) 
+//			throws ProductNotFoundException {
+//		return service.updateById(p1, id);
+//	}
     
-    @DeleteMapping("/deleteProduct/{id}")
-  	public Product deleteProduct(@PathVariable Long id) throws ProductNotFoundException
+    @DeleteMapping("/deleteProduct/{productId}")
+  	public void deleteProduct(@PathVariable Long productId) throws ProductNotFoundException
   	{
-  		return service.deleteProduct(id);
+  		productService.deleteProduct(productId);
   	}
     
     
