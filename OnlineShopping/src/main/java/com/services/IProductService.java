@@ -9,19 +9,13 @@ import com.exceptions.ProductNotFoundException;
 
 public interface IProductService {
 	
+	public List<Product> getProducts();
+	public Product getProductById(Long productId);
+	public Product addProduct(Product product);
+	public Product updateProduct(Long productId, Product product);
+	public void deleteProduct(Long productId);
+
 	
-
-	Product getProductById(Long id) throws ProductNotFoundException;
-
-	Product addProduct(Product p1) throws ProductAlreadyExistsException;
-
-	Product updateProduct(Product p1)throws ProductNotFoundException;
-
-	Product deleteProduct(Long id) throws ProductNotFoundException;
-
-	Product updateById(Product p1, Long id)throws ProductNotFoundException;
-
-	List<Product> getProducts();
 
 	
 	

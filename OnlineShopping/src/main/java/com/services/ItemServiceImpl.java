@@ -43,19 +43,7 @@ public class ItemServiceImpl implements IItemsService{
 
 	@Override
 	public Items addItems(Items item) {
-		
-		
-		if(itemDao.existsById(item.getItemId())) {
-			throw new ItemAlreadyExistsException();
-		}
 		return itemDao.save(item);
-		
-//		Items items = orderDao.findById(orderId).map(orders -> {
-//		      orders.getItems().add(item);
-//		      return itemDao.save(item);
-//		    }).orElseThrow(() -> new OrderDetailsNotFoundException());
-//		
-//		return items;
 	}
 
 	@Override

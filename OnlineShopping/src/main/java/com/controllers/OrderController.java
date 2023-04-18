@@ -53,10 +53,10 @@ public class OrderController {
 	}
 	
 	 
-	@DeleteMapping("/deleteOrder/{id}")
+	@DeleteMapping("/deleteOrder/{orderId}")
 	  	public void deleteOrder(@PathVariable Long orderId) throws OrderDetailsNotFoundException {
 	  	{
-	  		orderService.deleteOrder(orderId);
+	  		this.orderService.deleteOrder(orderId);
 	  	}
 
 }

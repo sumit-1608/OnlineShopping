@@ -7,9 +7,12 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.entities.Orders;
 import com.entities.Product;
+import com.exceptions.OrderDetailsNotFoundException;
 import com.exceptions.ProductAlreadyExistsException;
 import com.exceptions.ProductNotFoundException;
+import com.exceptions.UserNotFoundException;
 import com.repositories.IProductRepository;
 
 
@@ -17,91 +20,69 @@ import com.repositories.IProductRepository;
 public class ProductServiceImpl implements IProductService {
 	
 	@Autowired
-	private IProductRepository repo;
+	private IProductRepository productDao;
+	
 	@Override
 	public List<Product> getProducts(){
-//		Product p1=new Product();
-//		if(p1.getQuantity()>0)
+		return productDao.findAll();
+		
+	}
+	
+	@Override
+	public Product getProductById(Long productId){
+		if(productDao.findById(productId).isEmpty()) {
+			throw new ProductNotFoundException();
+		}
+		return productDao.findById(productId).get();
+	}
+
+	@Override
+	public Product addProduct(Product product){
+		return productDao.save(product);
+	}
+
+	@Override
+	public Product updateProduct(Long productId, Product product){
+		if(productDao.findById(productId).isEmpty()) {
+			throw new ProductNotFoundException();
+		}
+		return productDao.save(product);
+	}
+	
+
+	@Override
+	public void deleteProduct(Long productId){
+		if(productDao.findById(productId).isEmpty()) {
+			throw new ProductNotFoundException();
+		}
+		
+		
+		Product product = productDao.findById(productId).get();
+		
+		productDao.delete(product);
+	}
+	
+//	@Override
+//	public Product updateById(Product p1, Long id) throws ProductNotFoundException {
+//		if(repo.findById(id).isPresent())
 //		{
-//			p1.setStatus("active");
-//		}
+//			Product e1=repo.findById(id).get();
+//			
+//			e1.setProductName(p1.getProductName());
+//			e1.setPrice(p1.getPrice());
+//			e1.setQuantity(p1.getQuantity());
+//			
+//			Product e2=repo.save(e1);
+//			return e2;
+//			
+//		
+//	}
 //		else
 //		{
-//			p1.setStatus("deactive");
+//			throw new ProductNotFoundException("there is no Records found in our database"); 
 //		}
-		return repo.findAll();
-		
-	}
-	@Override
-	public Product getProductById(Long id) throws ProductNotFoundException {
-		Optional<Product> result=repo.findById(id);
-		
-	    if(result.isPresent())
-	    {
-	    	repo.findById(id);
-	    	  return result.get();
-	    }
-	   
-	    else
-	    {
-	    	throw new ProductNotFoundException("there is no Records found in our database");
-	    }}
-
-	@Override
-	public Product addProduct(Product p1) throws ProductAlreadyExistsException {
-		// TODO Auto-generated method stub
-		
-		return repo.saveAndFlush(p1);
-	}
-
-	@Override
-	public Product updateProduct(Product p1) throws ProductNotFoundException {
-		Optional<Product> result=repo.findById(p1.getProductCode());
-		if(result.isPresent())
-		{
-			return repo.saveAndFlush(p1);
-		}
-		else
-		{
-			throw new ProductNotFoundException("please enter valid  id");
-		}
-	}
-	
-
-	@Override
-	public Product deleteProduct(Long id) throws ProductNotFoundException {
-		Optional<Product> result=repo.findById(id);
-		if(result.isPresent())
-		{
-			repo.deleteById(id);
-			return result.get();
-		}
-		else
-		{
-			throw new ProductNotFoundException("there is no record found in our database");
-		}
-	}
-	@Override
-	public Product updateById(Product p1, Long id) throws ProductNotFoundException {
-		if(repo.findById(id).isPresent())
-		{
-			Product e1=repo.findById(id).get();
-			
-			e1.setProductName(p1.getProductName());
-			e1.setPrice(p1.getPrice());
-			e1.setQuantity(p1.getQuantity());
-			
-			Product e2=repo.save(e1);
-			return e2;
-			
-		
-	}
-		else
-		{
-			throw new ProductNotFoundException("there is no Records found in our database"); 
-		}
-	
-	}
+//	
+//	}
 }
 	
 	

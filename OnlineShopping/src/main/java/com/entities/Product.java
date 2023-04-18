@@ -26,7 +26,6 @@ public class Product {
 
 	
 	@Id
-//	@GeneratedValue(strategy=GenerationType.IDENTITY) 
 	
 	@GeneratedValue(generator = "sequence-generator_product")
     @GenericGenerator(

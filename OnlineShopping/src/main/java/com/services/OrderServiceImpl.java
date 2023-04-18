@@ -39,12 +39,6 @@ public class OrderServiceImpl implements IOrderService {
 
 	@Override
 	public Orders addOrderDetails(Orders orders){
-		if(orderDao.existsById(orders.getOrderId())) {
-			throw new OrderAlreadyExistsException();
-		}
-		
-		
-		
 		return orderDao.save(orders);
 	}
 
