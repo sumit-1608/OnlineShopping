@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.entities.Items;
-import com.exceptions.ItemAlreadyExistsException;
 import com.exceptions.ItemNotFoundException;
 import com.services.IItemsService;
 
@@ -35,7 +34,7 @@ public class ItemController {
 	}
 	
 	@PostMapping("/item")
-	public Items addItem(@RequestBody Items item) throws ItemAlreadyExistsException{
+	public Items addItem(@RequestBody Items item){
 		return this.itemService.addItems(item);
 	}
 	

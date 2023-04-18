@@ -3,6 +3,7 @@ package com.controllers;
 import java.util.List;
 
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.entities.Orders;
 import com.entities.Product;
-import com.exceptions.OrderAlreadyExistsException;
 import com.exceptions.OrderDetailsNotFoundException;
 import com.exceptions.ProductNotFoundException;
 import com.repositories.IOrderRepository;
@@ -38,19 +38,19 @@ public class OrderController {
 	}
 
 	@PostMapping("/order")
-	public Orders addOrderDetails(@RequestBody Orders order) throws OrderAlreadyExistsException {
+	public Orders addOrderDetails(@RequestBody Orders order){
 		{
 			return orderService.addOrderDetails(order);
 		}
 	}
 
-	@PutMapping("/order/{orderId}")
-	public Orders updateOrderDetails(@PathVariable Long orderId, @RequestBody Orders orders) throws OrderDetailsNotFoundException {
-		{
-			return this.orderService.updateOrderDetails(orderId, orders);
-		}
-
-	}
+//	@PutMapping("/order/{orderId}")
+//	public Orders updateOrderDetails(@PathVariable Long orderId, @RequestBody Orders orders) throws OrderDetailsNotFoundException {
+//		{
+//			return this.orderService.updateOrderDetails(orderId, orders);
+//		}
+//
+//	}
 	
 	 
 	@DeleteMapping("/deleteOrder/{orderId}")

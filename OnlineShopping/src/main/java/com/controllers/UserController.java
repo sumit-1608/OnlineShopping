@@ -3,6 +3,7 @@ package com.controllers;
 import java.util.List;
 
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.entities.Users;
-import com.exceptions.UserAlreadyExistsException;
 import com.exceptions.UserNotFoundException;
 import com.services.IUserService;
 
@@ -36,7 +36,7 @@ public class UserController {
 	}
 	
 	@PostMapping("/user")
-	public Users addUser(@RequestBody Users user) throws UserAlreadyExistsException{
+	public Users addUser(@RequestBody Users user){
 		return this.userService.addUser(user);
 	}
 	

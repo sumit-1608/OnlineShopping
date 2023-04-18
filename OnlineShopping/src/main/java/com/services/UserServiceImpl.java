@@ -7,8 +7,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.entities.Product;
 import com.entities.Users;
-import com.exceptions.UserAlreadyExistsException;
+import com.exceptions.ProductNotFoundException;
 import com.exceptions.UserNotFoundException;
 import com.repositories.IUserRepository;
 
@@ -38,10 +39,22 @@ public class UserServiceImpl implements IUserService{
 
 	@Override
 	public Users updateUser(Long userId, Users user) {
-		if(userDao.findById(userId).isEmpty()) {
-			throw new UserNotFoundException();
+		if(userDao.findById(userId).isPresent())
+		{
+			Users u = userDao.findById(userId).get();
+			
+			u.setName(user.getName());
+			u.setEmailId(user.getEmailId());
+			u.setPassword(user.getPassword());
+			u.setMobileNo(user.getMobileNo());
+			
+			Users us = userDao.save(u);
+			return us;
 		}
-		return userDao.save(user);
+		else
+		{
+			throw new UserNotFoundException(); 
+		}
 	}
 
 	@Override
